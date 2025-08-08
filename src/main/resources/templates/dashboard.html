@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ImanBooster - Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+<div class="container">
+    <h2 class="mb-4">ImanBooster Dashboard</h2>
+    <div th:if="${motivation}" class="alert alert-info" th:text="${motivation}"></div>
+    <div class="mb-4">
+        <h4 th:unless="${currentScore == null}">Your current Iman score: <span th:text="${currentScore}"></span></h4>
+        <p th:if="${currentScore == null}">No test taken yet.</p>
+        <a href="/iman-test" class="btn btn-primary">Take Iman Test</a>
+        <a href="/logout" class="btn btn-outline-danger ms-2">Logout</a>
+    </div>
+    <h4>Test History</h4>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Date Taken</th>
+            <th>Score</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="test : ${tests}">
+            <td th:text="${#temporals.format(test.dateTaken, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${test.score}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
